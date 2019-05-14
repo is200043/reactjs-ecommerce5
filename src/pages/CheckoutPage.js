@@ -1,5 +1,7 @@
+/* eslint-disable no-restricted-globals */
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom';
 import {
     Box,
     Image,
@@ -12,14 +14,14 @@ class CheckoutPage extends Component {
     componentDidMount() {
         this.props.getCartItems();
     }
-    onSubmit = (values) => {
+    onSubmit = async (values) => {
         const { history, checkout } = this.props;
-        console.log('v', values);
+        // console.log('v', values);
         const ans = confirm('Are you sure ?');
-        // history.push('/payment');
         if (ans) {
             this.setState({ showModal: true });
-            checkout(this.state)
+            await checkout(values);
+            // history.push('/payment');
         }
     }
     render() {
@@ -74,4 +76,4 @@ const mapDispatchToProps = (dispatch) => {
         checkout: dispatch.cart.checkoutAsync
     }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(CheckoutPage);
+export default connect(mapStateToProps, mapDispatchToProps) (withRouter(CheckoutPage));

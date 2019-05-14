@@ -25,14 +25,14 @@ export const cart = {
     }
   },
   effects: (dispatch) => ({
-    async addItemAsync(id) {
+    async addItemAsync(payload, rootState) {
       let headers = {
         'Content-Type': 'application/json',
       }
       let data = {
         "data": {
           "type": "cart_item",
-          "id": id,
+          "id": payload,
           "quantity": 1
         }
       }
@@ -40,9 +40,9 @@ export const cart = {
       console.log(res.data);
       dispatch.cart.getCartItemsAsync()
     },
-    async deleteItemAsync(id) {
-      console.log(id);
-      const res = await request.delete('carts/123456/items/' + id);
+    async deleteItemAsync(payload, rootState) {
+      console.log(payload);
+      const res = await request.delete('carts/123456/items/' + payload);
       console.log(res.data);
       dispatch.cart.getCartItemsAsync()
     },
@@ -65,39 +65,39 @@ export const cart = {
       dispatch.cart.setCartItems(cleanData)
       dispatch.cart.setTotalPrice(totalPrice)
     },
-    async checkoutAsync(state) {
+    async checkoutAsync(payload, rootState) {
       let headers = {
         'Content-Type': 'application/json',
       }
       let data = {
         "data": {
           "customer": {
-            "email": state.email,
-            "name": state.first_name + ' ' + state.last_name
+            "email": payload.email,
+            "name": payload.name
           },
           "billing_address": {
-            "first_name": state.first_name,
-            "last_name": state.last_name,
-            "company_name": state.company_name,
-            "line_1": state.line_1,
-            "line_2": state.line_2,
-            "city": state.city,
-            "postcode": state.postcode,
-            "county": state.county,
-            "country": state.country
+            "first_name": payload.first_name,
+            "last_name": payload.last_name,
+            "company_name": payload.company_name,
+            "line_1": payload.line_1,
+            "line_2": payload.line_2,
+            "city": payload.city,
+            "postcode": payload.postcode,
+            "county": payload.county,
+            "country": payload.country
           },
           "shipping_address": {
-            "first_name": state.first_name,
-            "last_name": state.last_name,
-            "company_name": state.company_name,
-            "phone_number": state.phone_number,
-            "line_1": state.line_1,
-            "line_2": state.line_2,
-            "city": state.city,
-            "postcode": state.postcode,
-            "county": state.county,
-            "country": state.country,
-            "instructions": state.instructions,
+            "first_name": payload.first_name,
+            "last_name": payload.last_name,
+            "company_name": payload.company_name,
+            "phone_number": payload.phone_number,
+            "line_1": payload.line_1,
+            "line_2": payload.line_2,
+            "city": payload.city,
+            "postcode": payload.postcode,
+            "county": payload.county,
+            "country": payload.country,
+            "instructions": payload.instructions,
           }
         }
       }
