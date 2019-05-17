@@ -8,6 +8,7 @@ import CheckoutPage from './pages/CheckoutPage'
 import LoginPage from './pages/LoginPage'
 import RegisterPage from './pages/RegisterPage'
 import ProfilePage from './pages/ProfilePage';
+import PaymentPage from './pages/PaymentPage';
 import PrivateRoute from './components/PrivateRoute';
 
 import './App.css';
@@ -29,6 +30,7 @@ class App extends Component {
             <Switch>
               <Route path="/" exact component={ProductListPage} />
               <Route path="/checkout" exact component={CheckoutPage} />
+              <Route path="/order/:orderId" exact component={PaymentPage} />
               <Route path="/login" exact component={LoginPage} />
               <Route path="/register" exact component={RegisterPage} />
               <PrivateRoute path="/profile" exact component={ProfilePage} />
